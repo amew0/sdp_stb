@@ -53,7 +53,7 @@ def main():
             pred_value,confidence=cam_predict.cam_predict(classify_lite, frame0, frame1)
             print(f"{class_names[pred_value[0]]} {confidence[0]:.2f} - cam0")
             print(f"{class_names[pred_value[1]]} {confidence[1]:.2f} - cam1")
-            print(f"{class_names[pred_value[1]]} {confidence[1]:.2f} - Final")
+            print(f"{class_names[pred_value[2]]} {confidence[2]:.2f} - Final")
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

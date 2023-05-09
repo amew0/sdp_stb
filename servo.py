@@ -23,7 +23,7 @@ pca.servo[1].set_pulse_width_range(MIN_IMP[0] , MAX_IMP[0])
 
 MID = 75
 MID1 = 92
-MAX_TILT = 45
+MAX_TILT = 30
 pca.servo[0].angle = MID
 pca.servo[1].angle = MID1
 # pca.servo[2].angle = MID

@@ -17,7 +17,8 @@ servo_switcher = {
 }
 
 def init_pred ():
-    TF_MODEL_FILE_PATH = 'Models/InceptionV3-STBv1.0_Lite' # The default path to the saved TensorFlow Lite model
+    # TF_MODEL_FILE_PATH = 'Models/InceptionV3-STBv1.0_Lite' # The default path to the saved TensorFlow Lite model
+    TF_MODEL_FILE_PATH = 'Models/ResNet50-STBv1.0_17_Lite'
 
     interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
 
@@ -63,8 +64,8 @@ def conflict_resolution(pred_value,conf):
     # servo_switcher.get(final_pred, lambda: print("Invalid key"))()
     servo_switcher.get(3, lambda: print("Invalid key"))()
     
-    pred_value.append(final_pred)
-    final_conf.append(final_conf)
+    pred_value = np.append(pred_value, final_pred)
+    conf = np.append(conf, final_conf)
 
     return pred_value,conf
 
