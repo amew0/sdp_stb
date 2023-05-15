@@ -8,8 +8,8 @@ from servo import *
 
 import cv2
 
-DIST_THRES = 5.0 # cm
-class_names = ['Can','Paper','Plastic']
+DIST_THRES = 10.0 # cm
+class_names = ['Can','Paper','Plastic','General Waste']
 
 cam0 = cv2.VideoCapture(0)
 cam1 = cv2.VideoCapture(2)
@@ -20,6 +20,8 @@ cam0.set(3,224)
 cam0.set(4,224)
 cam1.set(3,224)
 cam1.set(4,224)
+
+
 
 cv2.namedWindow("0")
 cv2.namedWindow("1")
@@ -48,17 +50,19 @@ def main():
             start = end
 
         if(dist < DIST_THRES):
-            time.sleep(2)
+            #time.sleep(2)
             print("Starting prediction")
             pred_value,confidence=cam_predict.cam_predict(classify_lite, frame0, frame1)
             print(f"{class_names[pred_value[0]]} {confidence[0]:.2f} - cam0")
             print(f"{class_names[pred_value[1]]} {confidence[1]:.2f} - cam1")
             print(f"{class_names[pred_value[2]]} {confidence[2]:.2f} - Final")
+            tilt_general()
+            time.sleep(3)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         i += 1
-
+        
         # if inp == 48:
         #     tilt_paper()
         # elif inp == 49:
@@ -71,6 +75,7 @@ def main():
     cam0.release()
     cam1.release()
     cv2.destroyAllWindows()
+    
 if __name__=="__main__":
     main()
 

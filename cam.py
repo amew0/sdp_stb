@@ -11,6 +11,11 @@ def main3():
     cam0.set(4,224)
     cam1.set(3,224)
     cam1.set(4,224)
+
+    # cam0.set(3,1000)
+    # cam0.set(4,1000)
+    # cam1.set(3,1000)
+    # cam1.set(4,1000)
     
     cv2.namedWindow("0")
     cv2.namedWindow("1")
