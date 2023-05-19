@@ -45,18 +45,18 @@ def main():
     
         dist = ultrasonic.distance()
         end = time.time()
-        if (end - start > 0.5): # 0.5 sec
+        if (end - start > 1): # 0.5 sec
             print(f"{dist:.2f} cm")
             start = end
 
         if(dist < DIST_THRES):
-            #time.sleep(2)
+            time.sleep(2)
             print("Starting prediction")
             pred_value,confidence=cam_predict.cam_predict(classify_lite, frame0, frame1)
             print(f"{class_names[pred_value[0]]} {confidence[0]:.2f} - cam0")
             print(f"{class_names[pred_value[1]]} {confidence[1]:.2f} - cam1")
             print(f"{class_names[pred_value[2]]} {confidence[2]:.2f} - Final")
-            tilt_general()
+            # tilt_general()
             time.sleep(3)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):

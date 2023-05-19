@@ -21,14 +21,14 @@ pca.servo[0].set_pulse_width_range(MIN_IMP[0] , MAX_IMP[0])
 pca.servo[1].set_pulse_width_range(MIN_IMP[0] , MAX_IMP[0])
 
 
-MID = 75
-MID1 = 92
+MID = 77
+MID1 = 93
 MAX_TILT = 30
 pca.servo[0].angle = MID
 pca.servo[1].angle = MID1
 # pca.servo[2].angle = MID
 
-lag = 0.03
+lag = 0.005
 
 
 def tilt_left(MID, servoId):
@@ -53,20 +53,16 @@ def tilt_right(MID, servoId):
 
 def tilt_plastic():
     tilt_left(MID, 0)
-    # tilt_left(1)
 
 def tilt_can():
-    # tilt_left(0)
-    tilt_right(MID, 0)
-
-def tilt_paper():
-    # tilt_right(0)
-    tilt_left(MID1, 1)
-
-def tilt_general():
-    # tilt_right(0)
     tilt_right(MID1, 1)
 
+def tilt_paper():
+    tilt_right(MID, 0)
+    
+def tilt_general():
+    tilt_left(MID1, 1)
+    
 if __name__ == "__main__":
     while True:
         inp = int(input("0 paper 1 plastic 2 metal 3 general\n"))

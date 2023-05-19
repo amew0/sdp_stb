@@ -13,7 +13,7 @@ servo_switcher = {
     0: servo.tilt_can,
     1: servo.tilt_paper,
     2: servo.tilt_plastic,
-    3: servo.tilt_general
+    # 3: servo.tilt_general
 }
 
 def init_pred ():
@@ -54,6 +54,10 @@ def cam_predict(classify_lite,frame0, frame1):
     conf[1] = 100 * np.max(predictions_lite)
 
 
+    #saving both images
+    save_frame(pred_value[0], frame0, 0)
+    save_frame(pred_value[1], frame1, 1)
+
     return conflict_resolution(pred_value,conf)
     # return pred_value,conf
 
@@ -62,14 +66,14 @@ def conflict_resolution(pred_value,conf):
     final_pred = pred_value[conf.index(final_conf)]
 
     # servo_switcher.get(final_pred, lambda: print("Invalid key"))()
-    servo_switcher.get(3, lambda: print("Invalid key"))()
+    servo_switcher.get(final_pred, lambda: print("Invalid key"))()
+
     
     pred_value = np.append(pred_value, final_pred)
     conf = np.append(conf, final_conf)
 
     return pred_value,conf
-
-
+    
 
 # this one uses the picamera (remove the "_" to use it)
 def cam_predict_(classify_lite,raw_capture,camera):
@@ -110,3 +114,16 @@ def cam_predict_(classify_lite,raw_capture,camera):
         #camera.stop_preview()
         
     # '''
+from datetime import datetime
+def save_frame(pred_value, frame, i):
+    if pred_value == 0:
+        label= 'can'
+    elif pred_value == 1:
+        label = 'paper'
+    elif pred_value == 2:
+        label = 'plastic'
+    elif pred_value == 3:
+        label = 'general'
+    now = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"real/{label}/{now}_{i}.png"
+    cv2.imwrite(filename, frame)
